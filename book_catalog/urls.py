@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from book_catalog import settings
 
 urlpatterns = [
     # Admin
@@ -19,3 +22,6 @@ urlpatterns = [
     path('api/users/', include('users.urls')),
     path('api/books/', include('books.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
